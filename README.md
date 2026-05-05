@@ -3,5 +3,6 @@ Example projects with [Trace0](https://trace0hq.com) installed for observability
 
 * [AWS Lambda Node.js](node-js-lambda/) - A Node.js service deployed on AWS Lambda.
 * [AWS Lambda Python](python-lambda/) - A Python service deployed on AWS Lambda.
+* [AWS Lambda Java](java-lambda/) - A Java service deployed on AWS Lambda.
 
 See the individual project directories for a detailed description.
