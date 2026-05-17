@@ -1,0 +1,22 @@
+{
+  "name": "node-js-express-ec2",
+  "version": "1.0.0",
+  "description": "Node.js Express service on EC2 with OpenTelemetry Zero-Code Instrumentation",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node --require @opentelemetry/auto-instrumentations-node/register dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1048.0",
+    "@aws-sdk/lib-dynamodb": "^3.1048.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.76.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.8.0",
+    "typescript": "^6.0.3"
+  }
+}
