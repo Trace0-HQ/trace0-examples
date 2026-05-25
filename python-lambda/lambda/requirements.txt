@@ -1,1 +1,1 @@
-trace0-lambda-otel-logger==1.0.5
+trace0-lambda-otel-logger==1.0.6
