@@ -57,3 +57,62 @@ npx cdk deploy
 The CDK will build all three JARs locally, upload them to S3, and provision the EC2 instance. Each service runs as a systemd unit. The public URL for the `hello-service` is printed as `ApiUrl` when the deployment completes.
 
 > Make sure you have the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) installed, your AWS credentials configured, and JDK 25 installed locally before deploying.
+
+## Seeing It in Action
+
+Once the deployment completes, you will see the `ApiUrl` printed in your console:
+
+![Deployment complete](docs/screenshots/deploy-complete-light.png#gh-light-mode-only)
+![Deployment complete](docs/screenshots/deploy-complete-dark.png#gh-dark-mode-only)
+
+### Calling the Service
+
+You can load a user by sending a `GET` request to the `/api/{userId}` endpoint:
+
+```bash
+curl --location 'http://ec2-18-203-153-123.eu-west-1.compute.amazonaws.com:8090/api/1'
+```
+
+```bash
+curl --location 'http://ec2-18-203-153-123.eu-west-1.compute.amazonaws.com:8090/api/2'
+```
+
+### Viewing Transactions
+
+You can then view the list of transactions for each service in the Trace0 dashboard:
+
+![Dashboard light mode](docs/screenshots/transactions-light.png#gh-light-mode-only)
+![Dashboard dark mode](docs/screenshots/transactions-dark.png#gh-dark-mode-only)
+
+### Viewing Transaction Detail
+
+To view more details for a single transaction, click on it to see a full breakdown — including all spans, logs, and time taken across each component and service:
+
+![Transaction detail flow light mode](docs/screenshots/transaction-detail-flow-light.png#gh-light-mode-only)
+![Transaction detail flow dark mode](docs/screenshots/transaction-detail-flow-dark.png#gh-dark-mode-only)
+
+![Transaction detail component breakdown light mode](docs/screenshots/transaction-detail-breakdown-light.png#gh-light-mode-only)
+![Transaction detail component dark mode](docs/screenshots/transaction-detail-breakdown-dark.png#gh-dark-mode-only)
+
+![Transaction detail service breakdown light mode](docs/screenshots/transaction-detail-service-breakdown-light.png#gh-light-mode-only)
+![Transaction detail service breakdown dark mode](docs/screenshots/transaction-detail-service-breakdown-dark.png#gh-dark-mode-only)
+
+See our [Transaction Detail section](https://docs.trace0hq.com/platform/transactions) in our user guide for more details.
+
+### Errors
+
+To simulate a failing transaction, remove the `dynamodb:GetItem` permission for the users DynamoDB table from the `user-service` IAM policy, then call the `/api/{userId}` endpoint again. The transaction will appear as an error in Trace0, with the full error details and stack trace included:
+
+![Transaction error light mode](docs/screenshots/transaction-error-light.png#gh-light-mode-only)
+![Transaction error dark mode](docs/screenshots/transaction-error-dark.png#gh-dark-mode-only)
+
+You can also set up alerts to be notified in real time when an error occurs. See our [Alerts section](https://docs.trace0hq.com/platform/alerts) in our user guide for more details.
+
+### Metrics
+
+You can view metrics for each service by clicking into the `Metrics` section:
+
+![Metrics light mode](docs/screenshots/metrics-light.png#gh-light-mode-only)
+![Metrics dark mode](docs/screenshots/metrics-dark.png#gh-dark-mode-only)
+
+See our [Metrics section](https://docs.trace0hq.com/platform/metrics) in our user guide for more details.
