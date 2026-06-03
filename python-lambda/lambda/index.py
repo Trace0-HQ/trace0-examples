@@ -59,6 +59,7 @@ def handler(event, context):
 
     except Exception as e:
         logger.error('Unhandled error', exc_info=True)
+        span.record_exception(e)
         span.set_attribute('http.response.status_code', 500)
         span.set_status(StatusCode.ERROR)
         return {

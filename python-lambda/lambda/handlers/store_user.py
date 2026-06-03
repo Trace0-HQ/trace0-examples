@@ -43,11 +43,7 @@ def store_user(event: dict) -> dict:
 
     logger.info(f"Storing user with id: {user_id}.")
 
-    try:
-        dynamo.Table(TABLE_NAME).put_item(Item=user)
-    except Exception:
-        logger.error('Failed to store user', exc_info=True)
-        return _json(500, {'error': 'Internal server error'})
+    dynamo.Table(TABLE_NAME).put_item(Item=user)
 
     logger.info(f"User stored successfully with id: {user_id}")
     return _json(201, user)

@@ -17,11 +17,7 @@ def load_user(event: dict) -> dict:
 
     logger.info(f"Loading user with id: {user_id}")
 
-    try:
-        result = dynamo.Table(TABLE_NAME).get_item(Key={'userId': user_id})
-    except Exception:
-        logger.error('Failed to load user', exc_info=True)
-        return _json(500, {'error': 'Internal server error'})
+    result = dynamo.Table(TABLE_NAME).get_item(Key={'userId': user_id})
 
     item = result.get('Item')
     if not item:
