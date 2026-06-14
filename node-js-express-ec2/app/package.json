@@ -11,7 +11,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1048.0",
     "@aws-sdk/lib-dynamodb": "^3.1048.0",
-    "@opentelemetry/auto-instrumentations-node": "^0.76.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.77.0",
     "@trace0/otel-logger": "^1.0.0",
     "express": "^5.2.1"
   },
