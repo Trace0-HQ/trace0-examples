@@ -97,6 +97,7 @@ Environment="AWS_REGION=${this.region}"
 Environment="OTEL_SERVICE_NAME=java-javalin-ec2-${env}"
 Environment="OTEL_EXPORTER_OTLP_ENDPOINT=https://app.trace0hq.com/api"
 Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+Environment="OTEL_RESOURCE_PROVIDERS_AWS_ENABLED=true"
 ExecStart=/usr/bin/java -javaagent:/opt/opentelemetry-javaagent.jar -Xmx400m -jar /opt/java-javalin-ec2.jar
 Restart=always
 RestartSec=5
