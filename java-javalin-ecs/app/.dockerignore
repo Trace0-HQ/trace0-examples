@@ -1,0 +1,10 @@
+.git
+.gradle
+gradle
+gradlew
+gradlew.bat
+build/classes
+build/reports
+build/tmp
+src
+*.md
