@@ -53,7 +53,7 @@ curl --location 'http://JavaJa-Servi-5LAdtgi6yfa0-27220979.eu-west-1.elb.amazona
 The response body will return a `userId` field, which you can then use to load a user by sending a `GET` request to the `/users/{userId}` endpoint:
 
 ```bash
-curl --location 'http://JavaJa-Servi-5LAdtgi6yfa0-27220979.eu-west-1.elb.amazonaws.com/users/29964145-de30-43d6-b36f-b2a6ed4123cf'
+curl --location 'http://JavaJa-Servi-5LAdtgi6yfa0-27220979.eu-west-1.elb.amazonaws.com/users/9d4ef081-c9fa-4681-bec6-106d8e7a092f'
 ```
 
 ### Viewing Transactions
