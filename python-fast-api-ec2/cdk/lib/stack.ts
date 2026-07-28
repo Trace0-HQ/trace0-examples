@@ -96,6 +96,7 @@ Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
 Environment="OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf"
 Environment="OTEL_PYTHON_LOG_CORRELATION=true"
 Environment="OTEL_PYTHON_LOG_CODE_ATTRIBUTES=true"
+Environment="OTEL_EXPERIMENTAL_RESOURCE_DETECTORS=env,host,os,process,aws_ec2"
 ExecStart=/opt/python-fast-api-ec2/venv/bin/opentelemetry-instrument /opt/python-fast-api-ec2/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=5
