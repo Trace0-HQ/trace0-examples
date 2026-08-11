@@ -70,6 +70,7 @@ export class JavaLambdaStack extends cdk.Stack {
         OTEL_EXPORTER_OTLP_ENDPOINT: 'https://app.trace0hq.com/api',
         OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=YOUR_TRACE0_ENV_API_KEY',
         OTEL_EXPORTER_OTLP_PROTOCOL: 'http/protobuf',
+        OTEL_RESOURCE_PROVIDERS_AWS_ENABLED: 'true',
         AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler'
       },
     });
