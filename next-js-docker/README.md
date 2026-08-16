@@ -6,7 +6,7 @@ A Next.js app and a Node.js backend, both running in Docker containers, with Tra
 * `backend/` — an Express service that contains the endpoints to load/store users in DynamoDB.
 * `DynamoDB Local` — a local version of AWS DynamoDB.
 
-## Running It
+## Running It Locally
 
 Before starting, set your Trace0 API key in `docker-compose.yml`. Replace `YOUR_TRACE0_ENV_API_KEY` in both the `frontend` and `backend` services' `OTEL_EXPORTER_OTLP_HEADERS`:
 

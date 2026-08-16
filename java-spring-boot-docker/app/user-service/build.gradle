@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'The user service'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-aspectj'
+    implementation 'org.springframework.boot:spring-boot-starter-opentelemetry'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-micrometer-metrics'
+
+    implementation project(':shared')
+    implementation "io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0:${opentelemetryVersion}"
+
+    implementation 'software.amazon.awssdk:dynamodb:2.25.0'
+    runtimeOnly 'software.amazon.awssdk:url-connection-client:2.25.0'
+    implementation "io.opentelemetry.instrumentation:opentelemetry-aws-sdk-2.2:${opentelemetryVersion}"
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

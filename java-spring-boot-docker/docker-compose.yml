@@ -1,0 +1,39 @@
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    command: ["-jar", "DynamoDBLocal.jar", "-inMemory", "-sharedDb"]
+    ports:
+      - "8000:8000"
+
+  user-service:
+    build:
+      context: ./app
+      target: user-service
+    depends_on:
+      - dynamodb-local
+    ports:
+      - "8081:8081"
+    environment:
+      USERS_TABLE_NAME: "users"
+      AWS_REGION: "local"
+      DYNAMODB_ENDPOINT: "http://dynamodb-local:8000"
+
+  greeting-service:
+    build:
+      context: ./app
+      target: greeting-service
+    ports:
+      - "8082:8082"
+
+  hello-service:
+    build:
+      context: ./app
+      target: hello-service
+    depends_on:
+      - user-service
+      - greeting-service
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_HTTP_SERVICECLIENT_USER_BASE_URL: "http://user-service:8081/"
+      SPRING_HTTP_SERVICECLIENT_GREETING_BASE_URL: "http://greeting-service:8082/"

@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+boto3
+opentelemetry-distro
+opentelemetry-exporter-otlp
+opentelemetry-instrumentation-system-metrics
+opentelemetry-resource-detector-containerid

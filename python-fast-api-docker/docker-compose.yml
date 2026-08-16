@@ -1,0 +1,26 @@
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    command: ["-jar", "DynamoDBLocal.jar", "-inMemory", "-sharedDb"]
+    ports:
+      - "8000:8000"
+
+  app:
+    build: ./app
+    depends_on:
+      - dynamodb-local
+    # Host 8080 -> container 8000, to avoid clashing with dynamodb-local's own
+    # host port 8000 mapping above.
+    ports:
+      - "8080:8000"
+    environment:
+      USERS_TABLE_NAME: "users"
+      DYNAMODB_ENDPOINT: "http://dynamodb-local:8000"
+      AWS_REGION: "local"
+      OTEL_SERVICE_NAME: "python-fast-api-docker"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://app.trace0hq.com/api"
+      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+      OTEL_PYTHON_LOG_CORRELATION: "true"
+      OTEL_PYTHON_LOG_CODE_ATTRIBUTES: "true"
+      OTEL_EXPERIMENTAL_RESOURCE_DETECTORS: "containerid,host,os,process"
