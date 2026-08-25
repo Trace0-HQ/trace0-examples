@@ -2,7 +2,7 @@
 
 A Next.js app and a Node.js backend, both running in Docker containers, with Trace0 installed for observability. This project includes:
 
-* `frontend/` — the Next.js app
+* `frontend/` — the Next.js app.
 * `backend/` — an Express service that contains the endpoints to load/store users in DynamoDB.
 * `DynamoDB Local` — a local version of AWS DynamoDB.
 
@@ -35,11 +35,11 @@ This builds and starts three containers: `dynamodb-local`, `backend` (port 4000)
 
 Open [http://localhost:3000](http://localhost:3000), enter a user name and email address, and then click the Create User button:
 
-![Frontend app one](docs/screenshots/frontend-app-one)
+![Frontend app one](docs/screenshots/frontend-app-one.png)
 
 The users list is then displayed:
 
-![Frontend app two](docs/screenshots/frontend-app-two)
+![Frontend app two](docs/screenshots/frontend-app-two.png)
 
 ### Viewing Transactions
 

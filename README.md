@@ -11,15 +11,15 @@ The projects are split into those you can deploy to your `AWS` account using the
 * [Python AWS Lambda](python-lambda/) - A Python service deployed on AWS Lambda.
 * [Java Javalin ECS](java-javalin-ecs/) - A Java Javalin service deployed on ECS.
 * [Java Javalin EC2](java-javalin-ec2/) - A Java Javalin service deployed on EC2.
-* [Java Spring Boot EC2](java-spring-boot-ec2/) - A Java Spring Boot service deployed on EC2.
+* [Java Spring Boot EC2](java-spring-boot-ec2/) - Java Spring Boot services deployed on EC2.
 * [Java AWS Lambda](java-lambda/) - A Java service deployed on AWS Lambda.
 
 ## Run Locally (Docker)
 
-* [Next.js Docker](next-js-docker/) - A Next.js app and Node.js backend running in Docker containers.
 * [Node.js Express Docker](node-js-express-docker/) - A Node.js Express service running in a Docker container.
 * [Python FastAPI Docker](python-fast-api-docker/) - A Python FastAPI service running in a Docker container.
 * [Java Javalin Docker](java-javalin-docker/) - A Java Javalin service running in a Docker container.
-* [Java Spring Boot Docker](java-spring-boot-docker/) - Spring Boot services running in Docker containers.
+* [Java Spring Boot Docker](java-spring-boot-docker/) - Java Spring Boot services running in Docker containers.
+* [Next.js Docker](next-js-docker/) - A Next.js app and Node.js backend running in Docker containers.
 
 See the individual project directories for a detailed description.
