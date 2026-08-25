@@ -53,8 +53,11 @@ To view more details for a single transaction, click on it to see a full breakdo
 ![Transaction detail flow light mode](docs/screenshots/transaction-detail-flow-light.png#gh-light-mode-only)
 ![Transaction detail flow dark mode](docs/screenshots/transaction-detail-flow-dark.png#gh-dark-mode-only)
 
-![Transaction detail breakdown light mode](docs/screenshots/transaction-detail-breakdown-light.png#gh-light-mode-only)
-![Transaction detail breakdown dark mode](docs/screenshots/transaction-detail-breakdown-dark.png#gh-dark-mode-only)
+![Transaction detail breakdown component light mode](docs/screenshots/transaction-detail-breakdown-light.png#gh-light-mode-only)
+![Transaction detail breakdown component dark mode](docs/screenshots/transaction-detail-breakdown-dark.png#gh-dark-mode-only)
+
+![Transaction detail breakdown service light mode](docs/screenshots/transaction-detail-service-breakdown-light.png#gh-light-mode-only)
+![Transaction detail breakdown service dark mode](docs/screenshots/transaction-detail-service-breakdown-dark.png#gh-dark-mode-only)
 
 See our [Transaction Detail section](https://docs.trace0hq.com/platform/transactions) in our user guide for more details.
 
