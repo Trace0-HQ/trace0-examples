@@ -20,6 +20,6 @@ The projects are split into those you can deploy to your `AWS` account using the
 * [Node.js Express Docker](node-js-express-docker/) - A Node.js Express service running in a Docker container.
 * [Python FastAPI Docker](python-fast-api-docker/) - A Python FastAPI service running in a Docker container.
 * [Java Javalin Docker](java-javalin-docker/) - A Java Javalin service running in a Docker container.
-* [Java Spring Boot Docker](java-spring-boot-docker/) - A Spring Boot services running in Docker containers.
+* [Java Spring Boot Docker](java-spring-boot-docker/) - Spring Boot services running in Docker containers.
 
 See the individual project directories for a detailed description.
