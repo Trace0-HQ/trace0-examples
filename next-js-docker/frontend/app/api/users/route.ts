@@ -11,6 +11,7 @@ function withTraceContext(headers: Record<string, string>): Record<string, strin
 
 export async function POST(request: Request): Promise<Response> {
   try {
+    console.log('Proxying create-user request to backend service');
     const body = await request.text();
     const backendResponse = await fetch(usersEndpoint(), {
       method: 'POST',
@@ -28,6 +29,7 @@ export async function POST(request: Request): Promise<Response> {
 
 export async function GET(): Promise<Response> {
   try {
+    console.log('Proxying get-users request to backend service');
     const backendResponse = await fetch(usersEndpoint(), {
       headers: withTraceContext({}),
     });
