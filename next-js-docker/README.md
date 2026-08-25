@@ -31,12 +31,6 @@ docker compose up --build
 
 This builds and starts three containers: `dynamodb-local`, `backend` (port 4000), and `frontend` (port 3000). Once they're up, open [http://localhost:3000](http://localhost:3000) to create and list users.
 
-To stop everything (and clear the in-memory table):
-
-```bash
-docker compose down
-```
-
 ## Seeing It In Action
 
 Coming soon!

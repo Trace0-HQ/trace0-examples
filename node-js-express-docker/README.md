@@ -48,12 +48,6 @@ The response body will return a `userId` field, which you can then use to load a
 curl --location 'http://localhost:3000/users/usr_1780264249725_02snrqo'
 ```
 
-To stop everything (and clear the in-memory table):
-
-```bash
-docker compose down
-```
-
 ## Seeing It In Action
 
 Coming soon!

@@ -38,12 +38,6 @@ The response body returns a `userId` field, which you can use to load the user:
 curl --location 'http://localhost:8080/users/<userId>'
 ```
 
-To stop everything (and clear the in-memory table):
-
-```bash
-docker compose down
-```
-
 ## Seeing It In Action
 
 Coming soon!

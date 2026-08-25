@@ -42,12 +42,6 @@ curl --location 'http://localhost:8090/api/1'
 curl --location 'http://localhost:8090/api/2'
 ```
 
-To stop everything (and clear the in-memory table):
-
-```bash
-docker compose down
-```
-
 ## Seeing It In Action
 
 Coming soon!
