@@ -20,6 +20,5 @@ The projects are split into those you can deploy to your `AWS` account using the
 * [Python FastAPI Docker](python-fast-api-docker/) - A Python FastAPI service running in a Docker container.
 * [Java Javalin Docker](java-javalin-docker/) - A Java Javalin service running in a Docker container.
 * [Java Spring Boot Docker](java-spring-boot-docker/) - Java Spring Boot services running in Docker containers.
-* [Next.js Docker](next-js-docker/) - A Next.js app and Node.js backend running in Docker containers.
 
 See the individual project directories for a detailed description.
