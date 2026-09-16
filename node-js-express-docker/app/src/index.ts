@@ -1,9 +1,8 @@
-import '@trace0/otel-logger'; // must be first
-import { flush } from '@trace0/otel-logger';
 import express from 'express';
 import { storeUser } from './handlers/storeUser';
 import { loadUser } from './handlers/loadUser';
 import { ensureTableExists } from './dynamodb';
+import logger from './logger.js';
 
 const app = express();
 const PORT = parseInt(process.env.PORT ?? '3000', 10);
@@ -16,15 +15,11 @@ app.get('/users/:userId', loadUser);
 async function main() {
   await ensureTableExists();
   app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    logger.info(`Server listening on port ${PORT}`)
   });
 }
 
 main().catch(async (err) => {
-  console.error('Failed to start server', err);
-  await flush();
+  logger.error('Failed to start server', err);
   process.exit(1);
 });
-
-process.once('SIGTERM', async () => { await flush(); process.exit(0); });
-process.once('SIGINT', async () => { await flush(); process.exit(0); });

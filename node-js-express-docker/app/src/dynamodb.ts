@@ -1,5 +1,6 @@
 import { CreateTableCommand, DynamoDBClient, ResourceInUseException } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
+import logger from './logger.js';
 
 export const TABLE_NAME = process.env.USERS_TABLE_NAME ?? 'users';
 
@@ -33,7 +34,7 @@ export async function ensureTableExists(retries = 20, delayMs = 1000): Promise<v
           BillingMode: 'PAY_PER_REQUEST',
         })
       );
-      console.log(`Created table ${TABLE_NAME}`);
+      logger.info(`Created table ${TABLE_NAME}`);
       return;
     } catch (err) {
       if (err instanceof ResourceInUseException) {
@@ -42,7 +43,7 @@ export async function ensureTableExists(retries = 20, delayMs = 1000): Promise<v
       if (attempt === retries) {
         throw err;
       }
-      console.log(`DynamoDB Local not ready yet (attempt ${attempt}/${retries}), retrying in ${delayMs}ms...`);
+      logger.info(`DynamoDB Local not ready yet (attempt ${attempt}/${retries}), retrying in ${delayMs}ms...`);
       await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { dynamo, TABLE_NAME } from '../dynamodb';
+import logger from '../logger.js';
 
 interface StoreUserBody {
   name: string;
@@ -29,17 +30,17 @@ export async function storeUser(req: Request, res: Response): Promise<void> {
   const userId = generateUserId();
   const user: User = { userId, name, email, createdAt: new Date().toISOString() };
 
-  console.log(`Storing user with id: ${userId}.`);
+  logger.info(`Storing user with id: ${userId}.`);
 
   try {
     await dynamo.send(new PutCommand({ TableName: TABLE_NAME, Item: user }));
   } catch (err) {
     const error = err as Error;
-    console.error('Failed to store user', { error: error.message });
+    logger.error({ err: error }, 'Failed to store user');
     res.status(500).json({ error: 'Internal server error' });
     return;
   }
 
-  console.log(`User stored successfully with id: ${userId}`);
+  logger.info(`User stored successfully with id: ${userId}`);
   res.status(201).json(user);
 }
