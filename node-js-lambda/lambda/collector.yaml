@@ -1,0 +1,41 @@
+receivers:
+  telemetryapi:
+
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  otlp_http/trace0:
+    endpoint: https://app.trace0hq.com/api
+    headers:
+      X-API-KEY: 'YOUR_TRACE0_ENV_API_KEY'
+
+processors:
+  batch:
+
+  decouple:
+
+  resource:
+    attributes:
+      - key: service.name
+        value: "${env:OTEL_SERVICE_NAME}"
+        action: upsert
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [resource, batch, decouple]
+      exporters: [otlp_http/trace0]
+
+    metrics:
+      receivers: [otlp]
+      processors: [resource, batch, decouple]
+      exporters: [otlp_http/trace0]
+
+    logs:
+      receivers: [telemetryapi]
+      processors: [resource, batch, decouple]
+      exporters: [otlp_http/trace0]

@@ -6,7 +6,9 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaNodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as logs from 'aws-cdk-lib/aws-logs';
-const OTEL_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-nodejs-0_21_0:1';
+
+const OTEL_NODE_JS_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-nodejs-0_23_0:1';
+const OTEL_COLLECTOR_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-collector-amd64-0_23_0:1';
 
 interface NodeJsLambdaStackProps extends cdk.StackProps {
   environment?: string;
@@ -36,7 +38,8 @@ export class NodeJsLambdaStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    const otelLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelLayer', OTEL_LAYER_ARN);
+    const otelNodeJsLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelNodeJsLayer', OTEL_NODE_JS_LAYER_ARN);
+    const otelCollectorLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelCollectorLayer', OTEL_COLLECTOR_LAYER_ARN);
 
     // Lambda function — NodejsFunction compiles and bundles the TypeScript automatically
     const userLambda = new lambdaNodejs.NodejsFunction(this, 'UserLambda', {
@@ -49,25 +52,36 @@ export class NodeJsLambdaStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(30),
       memorySize: 512,
       logGroup,
-      layers: [otelLayer],
+      layers: [otelNodeJsLayer, otelCollectorLayer],
       environment: {
         USERS_TABLE_NAME: usersTable.tableName,
         ENVIRONMENT: env,
+        OPENTELEMETRY_COLLECTOR_CONFIG_URI: '/var/task/collector.yaml',
         OTEL_SERVICE_NAME: `node-js-lambda-${env}`,
-        OTEL_EXPORTER_OTLP_ENDPOINT: 'https://app.trace0hq.com/api',
-        OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=YOUR_TRACE0_ENV_API_KEY',
-        AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler',
+        OTEL_EXPORTER_OTLP_ENDPOINT: 'http://localhost:4318',
+        OTEL_EXPORTER_OTLP_PROTOCOL: 'http/protobuf',
+        OTEL_NODE_ENABLED_INSTRUMENTATIONS: 'pino',
+        AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler'
       },
       bundling: {
-        // @aws-sdk/* is in the Node runtime so does not need to be bundled.
-        // @opentelemetry/api is bundled rather than externalised because although the OTel Lambda layer
-        // provides it internally, it is not exposed on the Node.js module resolution path. This is required
-        // by otel-logger.ts which wraps the global console methods with OTel trace context (traceId/spanId)
-        // so that logs can be correlated with traces/
-        externalModules: ['@aws-sdk/*'],
+        externalModules: ['@aws-sdk/*', 'pino'],
+        nodeModules: ['pino'],
         minify: false,
         sourceMap: true,
-        target: 'node24'
+        target: 'node24',
+        commandHooks: {
+          beforeBundling() {
+            return [];
+          },
+          beforeInstall() {
+            return [];
+          },
+          afterBundling(inputDir, outputDir) {
+            return [
+              `cp ${inputDir}/collector.yaml ${outputDir}/collector.yaml`,
+            ];
+          },
+        },
       },
     });
 
