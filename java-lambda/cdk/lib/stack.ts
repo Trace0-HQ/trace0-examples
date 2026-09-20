@@ -7,8 +7,9 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as logs from 'aws-cdk-lib/aws-logs';
 
-// Check https://github.com/open-telemetry/opentelemetry-lambda/releases for the latest Java layer ARN.
-const OTEL_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-javaagent-0_19_0:1';
+// Check https://github.com/open-telemetry/opentelemetry-lambda/releases for the latest Java layer ARN and collector ARN.
+const OTEL_JAVA_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-javaagent-0_21_0:1';
+const OTEL_COLLECTOR_LAYER_ARN = 'arn:aws:lambda:eu-west-1:184161586896:layer:opentelemetry-collector-amd64-0_23_0:1';
 
 interface JavaLambdaStackProps extends cdk.StackProps {
   environment?: string;
@@ -38,7 +39,8 @@ export class JavaLambdaStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    const otelLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelLayer', OTEL_LAYER_ARN);
+    const otelJavaLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelJavaLayer', OTEL_JAVA_LAYER_ARN);
+    const otelCollectorLayer = lambda.LayerVersion.fromLayerVersionArn(this, 'OtelCollectorLayer', OTEL_COLLECTOR_LAYER_ARN);
 
     // Build the fat JAR locally via Gradle, then deploy it.
     const lambdaDir = path.join(__dirname, '../../lambda');
@@ -51,8 +53,10 @@ export class JavaLambdaStack extends cdk.Stack {
         bundling: {
           local: {
             tryBundle(outputDir: string): boolean {
-              execSync(`"${lambdaDir}/gradlew" shadowJar --project-dir "${lambdaDir}"`, { stdio: 'inherit' });
-              execSync(`cp "${lambdaDir}/build/libs/java-lambda.jar" "${outputDir}/java-lambda.jar"`, { stdio: 'inherit' });
+              execSync(`"${lambdaDir}/gradlew" clean shadowJar --project-dir "${lambdaDir}"`, { stdio: 'inherit' });
+              execSync(`mkdir -p "${outputDir}/lib"`, { stdio: 'inherit' });
+              execSync(`cp "${lambdaDir}/build/libs/java-lambda.jar" "${outputDir}/lib/java-lambda.jar"`, { stdio: 'inherit' });
+              execSync(`cp "${lambdaDir}/collector.yaml" "${outputDir}/collector.yaml"`, { stdio: 'inherit' });
               return true;
             },
           },
@@ -62,13 +66,13 @@ export class JavaLambdaStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(30),
       memorySize: 512,
       logGroup,
-      layers: [otelLayer],
+      layers: [otelJavaLayer, otelCollectorLayer],
       environment: {
         USERS_TABLE_NAME: usersTable.tableName,
         ENVIRONMENT: env,
         OTEL_SERVICE_NAME: `java-lambda-${env}`,
-        OTEL_EXPORTER_OTLP_ENDPOINT: 'https://app.trace0hq.com/api',
-        OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=YOUR_TRACE0_ENV_API_KEY',
+        OPENTELEMETRY_COLLECTOR_CONFIG_URI: '/var/task/collector.yaml',
+        OTEL_EXPORTER_OTLP_ENDPOINT: 'http://localhost:4318',
         OTEL_EXPORTER_OTLP_PROTOCOL: 'http/protobuf',
         OTEL_RESOURCE_PROVIDERS_AWS_ENABLED: 'true',
         AWS_LAMBDA_EXEC_WRAPPER: '/opt/otel-handler'
