@@ -9,10 +9,14 @@ A Python service deployed on AWS Lambda, with Trace0 installed for observability
 
 ## Deploying to AWS
 
-Before deploying, set your Trace0 API key in `cdk/lib/stack.ts`. Find the `OTEL_EXPORTER_OTLP_HEADERS` environment variable and replace `YOUR_TRACE0_ENV_API_KEY` with your API key:
+Before deploying, set your Trace0 API key in `lambda/collector.yaml`. Find the `X-API-KEY` value and replace `YOUR_TRACE0_ENV_API_KEY` with your API key:
 
-```typescript
-OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=abc123',
+```yaml
+exporters:
+  otlp_http/trace0:
+    endpoint: https://app.trace0hq.com/api
+    headers:
+      X-API-KEY: 'abc123'
 ```
 
 You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).

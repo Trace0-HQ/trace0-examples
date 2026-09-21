@@ -1,6 +1,3 @@
-import trace0_lambda_otel_logger  # must be first
-from trace0_lambda_otel_logger import flush
-
 import json
 import logging
 import re
@@ -8,14 +5,18 @@ import re
 from opentelemetry import trace
 from opentelemetry.trace import StatusCode
 
+from logger import configure_logging
 from handlers.store_user import store_user
 from handlers.load_user import load_user
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def handler(event, context):
+    # Re-attaches our own handler on each invocation, since the Lambda runtime re-attaches
+    # its own plain-text handler every time (not just at lambda start up).
+    configure_logging()
+
     http_method = event.get('httpMethod', '')
     path = event.get('path', '')
     request_id = event.get('requestContext', {}).get('requestId', '')
@@ -67,5 +68,3 @@ def handler(event, context):
             'headers': {'Content-Type': 'application/json'},
             'body': json.dumps({'error': 'Internal server error'}),
         }
-    finally:
-        flush()  # always flush before Lambda freezes
