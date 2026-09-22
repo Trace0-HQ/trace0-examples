@@ -101,7 +101,7 @@ See our [Transaction Detail section](https://docs.trace0hq.com/platform/transact
 
 ### Errors
 
-To simulate a failing transaction, remove the `dynamodb:GetItem` permission for the users DynamoDB table from the `user-service` IAM policy, then call the `/api/{userId}` endpoint again. The transaction will appear as an error in Trace0, with the full error details and stack trace included:
+To simulate a failing transaction, remove the `dynamodb:GetItem` permission for the users DynamoDB table from the `spring-boot-example-ec2-dev` IAM role's policy, then call the `/api/{userId}` endpoint again. The transaction will appear as an error in Trace0, with the full error details and stack trace included:
 
 ![Transaction error light mode](docs/screenshots/transaction-error-light.png#gh-light-mode-only)
 ![Transaction error dark mode](docs/screenshots/transaction-error-dark.png#gh-dark-mode-only)
