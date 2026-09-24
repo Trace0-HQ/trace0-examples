@@ -91,6 +91,10 @@ public class UserController {
     }
 
     public User createUser(CreateUserRequest request) {
+        if ("trigger-error@example.com".equals(request.email())) {
+            throw new IllegalArgumentException("Invalid email address: " + request.email() + ".");
+        }
+
         String userId = UUID.randomUUID().toString();
         logger.info("Creating user with id {}", userId);
         dynamoDb.putItem(PutItemRequest.builder()

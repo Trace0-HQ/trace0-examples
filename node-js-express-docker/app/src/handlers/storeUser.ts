@@ -33,6 +33,10 @@ export async function storeUser(req: Request, res: Response): Promise<void> {
   logger.info(`Storing user with id: ${userId}.`);
 
   try {
+    if (email === 'trigger-error@example.com') {
+      throw new Error(`Invalid email address: ${email}.`);
+    }
+
     await dynamo.send(new PutCommand({ TableName: TABLE_NAME, Item: user }));
   } catch (err) {
     const error = err as Error;

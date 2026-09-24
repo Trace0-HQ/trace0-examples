@@ -80,6 +80,9 @@ class CreateUserRequest(BaseModel):
 
 @app.post("/users", status_code=201)
 def create_user(body: CreateUserRequest):
+    if body.email == "trigger-error@example.com":
+        raise Exception(f"Invalid email address: {body.email}.")
+
     user_id = str(uuid.uuid4())
     logger.info("Creating user with id %s", user_id)
     item = {"userId": user_id, "name": body.name, "email": body.email}
