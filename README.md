@@ -1,7 +1,9 @@
 # Trace0 Examples
 Example projects with [Trace0](https://trace0hq.com) installed for observability, so you can see Trace0 in action.
 
-The projects are split into those you can deploy to your `AWS` account using the `AWS CDK` and those you can run locally with `Docker`.
+To see Trace0 in action in a near real-world, production-like microservice environment, see our [OpenTelemetry Demo app](https://github.com/Trace0-HQ/opentelemetry-demo).
+
+The following projects are split into those you can deploy to your `AWS` account using the `AWS CDK` and those you can run locally with `Docker`.
 
 ## Deploy to AWS (CDK)
 
