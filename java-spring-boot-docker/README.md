@@ -32,7 +32,11 @@ docker compose up --build
 
 This builds and starts four containers: `dynamodb-local`, `user-service` (port 8081), `greeting-service` (port 8082), and `hello-service` (port 8090). `user-service` seeds five users (ids 1–5) into DynamoDB Local on startup.
 
-Call hello-service, which in turn calls user-service and greeting-service:
+## Seeing It in Action
+
+### Calling the Service
+
+You can then load a user by calling the `hello-service` endpoint, which in turn calls the `user-service` and `greeting-service` services:
 
 ```bash
 curl --location 'http://localhost:8090/api/1'
@@ -42,6 +46,48 @@ curl --location 'http://localhost:8090/api/1'
 curl --location 'http://localhost:8090/api/2'
 ```
 
-## Seeing It In Action
+### Viewing Transactions
 
-Coming soon!
+You can then view the list of transactions for each service in the Trace0 dashboard:
+
+![Dashboard light mode](docs/screenshots/transactions-light.png#gh-light-mode-only)
+![Dashboard dark mode](docs/screenshots/transactions-dark.png#gh-dark-mode-only)
+
+### Viewing Transaction Detail
+
+To view more details for a single transaction, click on it to see a full breakdown — including all spans, logs, and time taken across each component and service:
+
+![Transaction detail flow light mode](docs/screenshots/transaction-detail-flow-light.png#gh-light-mode-only)
+![Transaction detail flow dark mode](docs/screenshots/transaction-detail-flow-dark.png#gh-dark-mode-only)
+
+![Transaction detail component breakdown light mode](docs/screenshots/transaction-detail-breakdown-light.png#gh-light-mode-only)
+![Transaction detail component dark mode](docs/screenshots/transaction-detail-breakdown-dark.png#gh-dark-mode-only)
+
+![Transaction detail service breakdown light mode](docs/screenshots/transaction-detail-service-breakdown-light.png#gh-light-mode-only)
+![Transaction detail service breakdown dark mode](docs/screenshots/transaction-detail-service-breakdown-dark.png#gh-dark-mode-only)
+
+See our [Transaction Detail section](https://docs.trace0hq.com/platform/transactions) in our user guide for more details.
+
+### Errors
+
+To trigger a failing transaction, call the `hello-service` `/api/{userId}` endpoint with a user ID that does not exist, e.g.
+
+```bash
+curl --location 'http://localhost:8090/api/15'
+```
+
+The transaction will appear as an error in Trace0, with the full error details and stack trace included:
+
+![Transaction error light mode](docs/screenshots/transaction-error-light.png#gh-light-mode-only)
+![Transaction error dark mode](docs/screenshots/transaction-error-dark.png#gh-dark-mode-only)
+
+You can also set up alerts to be notified in real time when an error occurs. See our [Alerts section](https://docs.trace0hq.com/platform/alerts) in our user guide for more details.
+
+### Metrics
+
+You can view metrics for each service by clicking into the `Metrics` section:
+
+![Metrics light mode](docs/screenshots/metrics-light.png#gh-light-mode-only)
+![Metrics dark mode](docs/screenshots/metrics-dark.png#gh-dark-mode-only)
+
+See our [Metrics section](https://docs.trace0hq.com/platform/metrics) in our user guide for more details.
