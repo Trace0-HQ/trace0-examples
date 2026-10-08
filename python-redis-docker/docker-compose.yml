@@ -1,0 +1,23 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  app:
+    build: ./app
+    depends_on:
+      - redis
+    # Host 8080 -> container 8000, to avoid clashing with redis's own host port 6379 mapping above.
+    ports:
+      - "8080:8000"
+    environment:
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+      OTEL_SERVICE_NAME: "python-redis-docker"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://app.trace0hq.com/api"
+      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+      OTEL_PYTHON_LOG_CORRELATION: "true"
+      OTEL_PYTHON_LOG_CODE_ATTRIBUTES: "true"
+      OTEL_EXPERIMENTAL_RESOURCE_DETECTORS: "containerid,host,os,process"
