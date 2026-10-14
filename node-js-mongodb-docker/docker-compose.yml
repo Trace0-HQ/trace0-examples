@@ -1,0 +1,19 @@
+services:
+  mongodb:
+    image: mongo:9
+    ports:
+      - "27017:27017"
+
+  app:
+    build: ./app
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      MONGODB_URI: "mongodb://mongodb:27017"
+      OTEL_SERVICE_NAME: "node-js-mongodb"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://app.trace0hq.com/api"
+      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"

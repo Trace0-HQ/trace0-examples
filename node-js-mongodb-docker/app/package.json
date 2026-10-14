@@ -1,0 +1,22 @@
+{
+  "name": "node-js-mongodb",
+  "version": "1.0.0",
+  "description": "Node.js Express service in Docker, backed by MongoDB instead of AWS",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node --require @opentelemetry/auto-instrumentations-node/register dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.81.0",
+    "express": "^5.2.1",
+    "mongodb": "^7.7.0",
+    "pino": "^10.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.8.0",
+    "typescript": "^6.0.3"
+  }
+}
