@@ -25,5 +25,6 @@ The following projects are split into those you can deploy to your `AWS` account
 * [Java Javalin Docker](java-javalin-docker/) - A Java Javalin service running in a Docker container.
 * [Java Spring Boot Docker](java-spring-boot-docker/) - Java Spring Boot services running in Docker containers.
 * [Java PostgreSQL Docker](java-postgres-docker) - A Java service using PostgreSQL, both running in Docker containers.
+* [React Frontend](react-frontend/) - A React app with browser-side instrumentation.
 
 See the individual project directories for a detailed description.

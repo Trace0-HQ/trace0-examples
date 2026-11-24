@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    environment:
+      PORT: "4000"
+      OTEL_SERVICE_NAME: "react-frontend-backend"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://app.trace0hq.com/api"
+      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_INGEST_API_KEY"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
