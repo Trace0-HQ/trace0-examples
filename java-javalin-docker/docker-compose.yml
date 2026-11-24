@@ -17,5 +17,5 @@ services:
       AWS_REGION: "local"
       OTEL_SERVICE_NAME: "java-javalin-docker"
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://app.trace0hq.com/api"
-      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+      OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_INGEST_API_KEY"
       OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"

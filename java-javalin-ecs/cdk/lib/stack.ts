@@ -83,7 +83,7 @@ export class JavaJavalinEcsStack extends cdk.Stack {
           AWS_REGION: this.region,
           OTEL_SERVICE_NAME: `java-javalin-ecs-${env}`,
           OTEL_EXPORTER_OTLP_ENDPOINT: 'https://app.trace0hq.com/api',
-          OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=YOUR_TRACE0_ENV_API_KEY',
+          OTEL_EXPORTER_OTLP_HEADERS: 'X-API-KEY=YOUR_TRACE0_INGEST_API_KEY',
           OTEL_EXPORTER_OTLP_PROTOCOL: 'http/protobuf',
           OTEL_RESOURCE_PROVIDERS_AWS_ENABLED: 'true'
         },

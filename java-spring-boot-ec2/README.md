@@ -31,12 +31,12 @@ DynamoDbClient.builder()
 
 ## Deploying to AWS
 
-Before deploying, set your Trace0 API key in each service's `application.properties` file. Replace `YOUR_TRACE0_ENV_API_KEY` with your API key in all three properties:
+Before deploying, set your Trace0 ingest API key in each service's `application.properties` file. Replace `YOUR_TRACE0_INGEST_API_KEY` with your API key in all three properties:
 
 ```properties
-management.opentelemetry.tracing.export.otlp.headers.X-API-KEY=YOUR_TRACE0_ENV_API_KEY
-management.otlp.metrics.export.headers.X-API-KEY=YOUR_TRACE0_ENV_API_KEY
-management.opentelemetry.logging.export.otlp.headers.X-API-KEY=YOUR_TRACE0_ENV_API_KEY
+management.opentelemetry.tracing.export.otlp.headers.X-API-KEY=YOUR_TRACE0_INGEST_API_KEY
+management.otlp.metrics.export.headers.X-API-KEY=YOUR_TRACE0_INGEST_API_KEY
+management.opentelemetry.logging.export.otlp.headers.X-API-KEY=YOUR_TRACE0_INGEST_API_KEY
 ```
 
 The files to update are:
@@ -44,7 +44,7 @@ The files to update are:
 * `app/user-service/src/main/resources/application.properties`
 * `app/greeting-service/src/main/resources/application.properties`
 
-You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
+You can find your ingest API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
 
 Then deploy the services to your AWS account:
 

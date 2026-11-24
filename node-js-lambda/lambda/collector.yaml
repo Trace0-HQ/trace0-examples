@@ -10,7 +10,7 @@ exporters:
   otlp_http/trace0:
     endpoint: https://app.trace0hq.com/api
     headers:
-      X-API-KEY: 'YOUR_TRACE0_ENV_API_KEY'
+      X-API-KEY: 'YOUR_TRACE0_INGEST_API_KEY'
 
 processors:
   batch:

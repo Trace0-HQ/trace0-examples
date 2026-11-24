@@ -7,13 +7,13 @@ A `FastAPI` app running in a Docker container, with Trace0 installed for observa
 
 ## Running It Locally
 
-Before starting, set your Trace0 API key in `docker-compose.yml`. Replace `YOUR_TRACE0_ENV_API_KEY` in the app service's `OTEL_EXPORTER_OTLP_HEADERS`:
+Before starting, set your Trace0 ingest API key in `docker-compose.yml`. Replace `YOUR_TRACE0_INGEST_API_KEY` in the app service's `OTEL_EXPORTER_OTLP_HEADERS`:
 
 ```yaml
-OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+OTEL_EXPORTER_OTLP_HEADERS: "X-API-KEY=YOUR_TRACE0_INGEST_API_KEY"
 ```
 
-You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
+You can find your ingest API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
 
 Then start everything:
 

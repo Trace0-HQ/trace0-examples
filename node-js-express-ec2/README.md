@@ -9,13 +9,13 @@ A `Node.js` `Express` service deployed on an EC2 instance, with Trace0 installed
 
 ## Deploying to AWS
 
-Before deploying, set your Trace0 API key in `cdk/lib/stack.ts`. Find the `OTEL_EXPORTER_OTLP_HEADERS` environment variable and replace `YOUR_TRACE0_ENV_API_KEY` with your API key:
+Before deploying, set your Trace0 ingest API key in `cdk/lib/stack.ts`. Find the `OTEL_EXPORTER_OTLP_HEADERS` environment variable and replace `YOUR_TRACE0_INGEST_API_KEY` with your API key:
 
 ```typescript
-Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_INGEST_API_KEY"
 ```
 
-You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
+You can find your ingest API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
 
 Then deploy the service to your AWS account:
 

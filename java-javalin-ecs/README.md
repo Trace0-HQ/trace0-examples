@@ -14,9 +14,9 @@ The service uses the [OpenTelemetry Java agent](https://opentelemetry.io/docs/ze
 
 ## Deploying to AWS
 
-Before deploying, set your Trace0 API key in `cdk/lib/stack.ts`. Replace `YOUR_TRACE0_ENV_API_KEY` with your API key in the `OTEL_EXPORTER_OTLP_HEADERS` environment variable.
+Before deploying, set your Trace0 ingest API key in `cdk/lib/stack.ts`. Replace `YOUR_TRACE0_INGEST_API_KEY` with your API key in the `OTEL_EXPORTER_OTLP_HEADERS` environment variable.
 
-You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
+You can find your ingest API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
 
 Then deploy to your AWS account:
 

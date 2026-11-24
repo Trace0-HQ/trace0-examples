@@ -9,7 +9,7 @@ Both services export directly to Trace0's OTLP ingest endpoint.
 
 ## Running It Locally
 
-Before starting, set your Trace0 ingest API key in two places. You can find your API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
+Before starting, set your Trace0 ingest API key in two places. You can find your ingest API key by clicking **Environment Settings** in the [Trace0 dashboard](https://app.trace0hq.com/).
 
 In `docker-compose.yml`, replace `YOUR_TRACE0_INGEST_API_KEY` in the `backend` service's `OTEL_EXPORTER_OTLP_HEADERS`:
 

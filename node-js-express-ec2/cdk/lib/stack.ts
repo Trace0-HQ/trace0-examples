@@ -95,7 +95,7 @@ Environment="PORT=3000"
 Environment="NODE_ENV=production"
 Environment="OTEL_SERVICE_NAME=node-js-express-ec2-${env}"
 Environment="OTEL_EXPORTER_OTLP_ENDPOINT=https://app.trace0hq.com/api"
-Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_ENV_API_KEY"
+Environment="OTEL_EXPORTER_OTLP_HEADERS=X-API-KEY=YOUR_TRACE0_INGEST_API_KEY"
 Environment="OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf"
 ExecStart=/usr/bin/node --require @opentelemetry/auto-instrumentations-node/register dist/index.js
 Restart=always
